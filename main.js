@@ -10,37 +10,52 @@ let adaprive = window.confirm("Нужен ли адаптив на сайте?")
 let service1 = prompt("Какой дополнительный тип услуги нужен?");
 let servicePrice1 = +prompt("Сколько это будет стоить?", 500);
 let service2 = prompt("Какой дополнительный тип услуги нужен?");
-let servicePrice3 = +prompt("Сколько это будет стоить?", 500);
-let fullPrice = screenPrice + servicePrice1 + servicePrice3;
-let servicePercentPrice = Math.round(fullPrice - rollback);
-// alert('Переменные объявлены');
+let servicePrice2 = +prompt("Сколько это будет стоить?", 500);
+let fullPrice = null;
+let servicePercentPrice = null;
+let allServicePrices = null;
 
-//Типы данных
-console.log("type of title:", typeof title);
-console.log("type of fullPrice:", typeof fullPrice);
-console.log("type of adaprive:", typeof adaprive);
-//длина строки
-console.log("screens length:", screens.length);
-//Стоимость верстки экранов
-console.log("Cтоимость верстки эрканов:", `${screenPrice} руб.`);
-console.log("Стоимость разработки сайта:", `${fullPrice} руб.`);
-//
-console.log("screens", screens.toLowerCase().split(","));
-//
-console.log("откат", fullPrice * (rollback / 100));
-console.log("servicePercentPrice", servicePercentPrice);
-console.log(fullPrice);
+const showTypeOf = function(variable){
+  console.log(variable, typeof variable);
+};
 
-switch (true) {
-  case fullPrice >= 30000:
-    console.log("Даем скидку в 10%");
-    break;
-  case fullPrice >= 15000 && fullPrice < 30000:
-    console.log("Даем скидку в 5%");
-    break;
-  case fullPrice >= 0 && fullPrice < 15000:
-    console.log("Скидка не предусмотрена");
-    break;
-  default:
-    console.log("Что то пошло не так");
+const getAllServicePrices = function(price1, price2){
+  return price1 + price2;
+};
+
+function getFullPrice(){
+  return screenPrice + allServicePrices;
 }
+
+const getTitle = function(title){
+  return title.trim()[0].toUpperCase() + title.trim().slice(1).toLowerCase();
+};
+
+const getServicePercentPrices = function(){
+  return Math.round(fullPrice - rollback);
+};
+
+const getRollbackMessage = function(price){
+  if(price >= 30000) {
+    return "Даем скидку в 10%";
+  } else if(price >= 15000 && price < 30000) {
+    return "Даем скидку в 5%";
+  } else if(price >= 0 && price < 15000) {
+    return "Скидка не предусмотрена";
+  } else {
+    return "Что то пошло не так";
+  }
+};
+
+
+allServicePrices = getAllServicePrices(servicePrice1, servicePrice2);
+fullPrice = getFullPrice();
+servicePercentPrice = getServicePercentPrices();
+
+
+showTypeOf(title);
+showTypeOf(screenPrice);
+showTypeOf(adaprive);
+console.log("screens", screens.toLowerCase().split(","));
+console.log(getRollbackMessage(fullPrice));
+console.log("servicePercentPrice", servicePercentPrice);
