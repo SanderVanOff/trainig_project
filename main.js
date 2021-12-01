@@ -11,8 +11,10 @@ let service1 = null;
 let service2 = null;
 
 const isNumber = function(num){
-  return !isNaN(parseFloat(num)) && isFinite(num);
+  console.log('num', num);
+  return !isNaN(parseFloat(num)) && isFinite(num) && num !== null;
 };
+
 
 const asking = function(){
   title = prompt("Как называется ваш проект?", "Калькулятор верстки");
@@ -23,9 +25,9 @@ const asking = function(){
   
   do {
     screenPrice = prompt("Сколько будет стоить данная работа?");
+    if(screenPrice !== null) screenPrice = +screenPrice;
   }
   while(!isNumber(screenPrice));
-  
   adaprive = window.confirm("Нужен ли адаптив на сайте?");
 };
 
