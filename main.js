@@ -40,18 +40,18 @@ const appData = {
       } while (!appData.isNumber(num));
       sum += +num;
     }
-    return sum;
+    appData.allServicePrices = sum;
   },
   //
   getFullPrice: function () {
-    return +appData.screenPrice + appData.allServicePrices;
+    appData.fullPrice = +appData.screenPrice + appData.allServicePrices;
   },
   ///
   getTitle: function () {
-    return appData.title.trim()[0].toUpperCase() + appData.title.trim().slice(1).toLowerCase();
+    appData.title = appData.title.trim()[0].toUpperCase() + appData.title.trim().slice(1).toLowerCase();
   },
   getServicePercentPrices: function () {
-    return appData.fullPrice - (appData.fullPrice * (appData.rollback / 100));
+    appData.servicePercentPrice =  appData.fullPrice - (appData.fullPrice * (appData.rollback / 100));
   },
   ///
   getRollbackMessage: function (price) {
@@ -70,17 +70,16 @@ const appData = {
   },
   start: function () {
     appData.asking();
-    appData.allServicePrices = appData.getAllServicePrices();
-    appData.fullPrice = appData.getFullPrice();
-    appData.servicePercentPrice = appData.getServicePercentPrices();
-    appData.title = appData.getTitle();
+    appData.getAllServicePrices();
+    appData.getFullPrice();
+    appData.getServicePercentPrices();
+    appData.getTitle();
     appData.logger();
 
   },
-  logger: function(){
-    for(key in appData){
-      console.log(key, appData[key]);
-    }
+  logger: function () {
+    console.log(appData.fullPrice());
+    console.log(appData.servicePercentPrice());
   }
 };
 
