@@ -14,14 +14,14 @@ const appData = {
   asking: function () {
     do {
       appData.title = prompt("Как называется ваш проект?", "Калькулятор верстки");
-    } while(appData.isNumber(appData.title));
-    
+    } while (appData.isNumber(appData.title));
+
 
     for (let i = 0; i < 2; i++) {
       let name = '';
       do {
         name = prompt("Какие типы экранов нужно разработать?");
-      } while(appData.isNumber(name));
+      } while (appData.isNumber(name));
 
       let price = 0;
       do {
@@ -36,28 +36,29 @@ const appData = {
       });
     }
 
-    
+
 
     for (let i = 0; i < 2; i++) {
-      let name= '';
+      let name = '';
       do {
         name = prompt("Какой дополнительный тип услуги нужен?");
-      } while(appData.isNumber(name));
+      } while (appData.isNumber(name));
       let price = 0;
 
       do {
         price = prompt("Сколько это будет стоить?", 500);
       } while (!appData.isNumber(price));
-      appData.services[name] = +price;
+      appData.services[name + (i + 1)] = +price;
     }
 
     appData.adaprive = confirm("Нужен ли адаптив на сайте?");
   },
   //
   addPrice: function () {
-    for(let screen of appData.screens) {
-      appData.screenPrice += +screen.price; 
-    }
+    appData.screenPrice = appData.screens.reduce(function (sum, current) {
+      return sum += +current.price;
+    }, 0);
+
     for (let key in appData.services) {
       appData.allServicePrices += appData.services[key];
     }
