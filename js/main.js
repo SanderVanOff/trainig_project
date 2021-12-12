@@ -31,6 +31,7 @@ const appData = {
   screenPrice: 0,
   adaprive: true,
   rollback: 0,
+  priceWithRollback: 0,
   fullPrice: 0,
   servicePricePercent: 0,
   servicePriceNumber: 0,
@@ -107,13 +108,13 @@ const appData = {
     appData.screensCount = appData.screens.reduce(function(sum, current) {
       return sum += current.count;
     }, 0);
-
-    appData.servicePercentPrice = appData.fullPrice - (appData.fullPrice * (appData.rollback / 100));
+    appData.rollback = +inputRange.value;
+    appData.priceWithRollback = appData.fullPrice - (appData.fullPrice * (appData.rollback / 100));
+    
   },
 
   addRollback: function () {
     rangeValue.textContent = `${inputRange.value}%`;
-    appData.rollback = +inputRange.value;
   }, 
 
   start: function () {
@@ -144,12 +145,12 @@ const appData = {
     total.value = appData.screenPrice;
     totalCountOther.value = appData.servicePriceNumber + appData.servicePricePercent;
     fullTotalCount.value = appData.fullPrice;
-    fullCountRollback.value = appData.servicePercentPrice;
+    fullCountRollback.value = appData.priceWithRollback;
     totalCount.value = appData.screensCount;
   },
   logger: function () {
     console.log(appData.fullPrice);
-    console.log(appData.servicePercentPrice);
+    console.log(appData.priceWithRollback);
     console.log(appData.screens);
   }
 };
