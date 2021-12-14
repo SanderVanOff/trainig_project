@@ -92,7 +92,7 @@ const appData = {
   },
   //
   addPrice: function () {
-    appData.screenPrice = appData.screens.reduce(function (sum, current) {
+    appData.screenPrice = appData.screens.reduce((sum, current) => {
       return sum += +current.price;
     }, 0);
 
@@ -105,7 +105,7 @@ const appData = {
     }
     appData.fullPrice = +appData.screenPrice + appData.servicePricePercent + appData.servicePriceNumber;
 
-    appData.screensCount = appData.screens.reduce(function(sum, current) {
+    appData.screensCount = appData.screens.reduce((sum, current) => {
       return sum += current.count;
     }, 0);
     appData.rollback = +inputRange.value;
